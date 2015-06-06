@@ -10,10 +10,10 @@ letANat c | c `elem` ['a'..'z'] = fromIntegral $ ord c - ord 'a'
           | otherwise = 0
 
 natALet :: Integer -> Char
-natALet n | 0 <= n && n <= 26 = chr $ fromIntegral n + ord 'a'
+natALet n | 0 <= n && n <= 25 = chr $ fromIntegral n + ord 'a'
 
 desplazar :: Integer -> Char -> Char
-desplazar n c = natALet $ (n + letANat c) `mod` 27
+desplazar n c = natALet $ (n + letANat c) `mod` 26
 
 cantMinusc :: String -> Integer
 cantMinusc s = fromIntegral $ length $ filter esMin s
@@ -31,12 +31,23 @@ decodificar :: Integer -> String -> String
 decodificar = undefined
 
 -- | 4
+-- Calcula la frecuencia porcentual de una letra minuscula l en un string
+frecLenS :: Char -> String -> Float
+frecLenS l s = 100 * (fromIntegral (contar l s) / fromIntegral (cantMinusc s))
+
+-- Calcula la frecuencia porcentual de cada letra minuscula de un primer string en un segundo string
+frecSenS :: String -> String -> [Float]
+frecSenS [] s2 = []
+frecSenS (l:ls) s2 = frecLenS l s2 : frecSenS ls s2
+
 frec :: String -> [Float]
-frec = undefined
+frec s = frecSenS ['a'..'z'] s
 
 -- | 5
 rotar :: Integer -> [a] -> [a]
-rotar = undefined
+rotar 0 l = l
+rotar 1 (l:ls) = ls ++ [l]
+rotar n l = rotar 1 (rotar (n-1) l)
 
 -- | 6
 -- Distancia
