@@ -39,7 +39,8 @@ rotar = undefined
 -- | 6
 -- Distancia
 chi2 :: [Float] -> [Float] -> Float
-chi2 [] [] = 0
+chi2 [] _ = 0
+chi2 _ [] = 0
 chi2 (x:xs) (y:ys) | length (x:xs) == length (y:ys) = ((x-y)^2)/y + chi2 xs ys
 
 -- | 7
