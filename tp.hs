@@ -44,7 +44,9 @@ frec s = frecSenS ['a'..'z'] s
 
 -- | 5
 rotar :: Integer -> [a] -> [a]
-rotar = undefined
+rotar 0 l = l
+rotar 1 (l:ls) = ls ++ [l]
+rotar n l = rotar 1 (rotar (n-1) l)
 
 -- | 6
 -- Distancia
