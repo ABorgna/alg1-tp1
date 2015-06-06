@@ -1,23 +1,25 @@
+import Data.Char (chr,isAsciiLower,ord)
 
 -- | 1
 -- Funciones auxiliares
-esMin :: Char -> Bool
-esMin = undefined
+esMin :: Char -> Bool 
+esMin c = isAsciiLower c
 
 letANat :: Char -> Integer
-letANat = undefined
+letANat c | c `elem` ['a'..'z'] = fromIntegral $ ord c - ord 'a'
+          | otherwise = 0
 
 natALet :: Integer -> Char
-natALet = undefined
+natALet n | 0 <= n && n <= 26 = chr $ fromIntegral n + ord 'a'
 
 desplazar :: Integer -> Char -> Char
-desplazar = undefined
+desplazar n c = natALet $ (n + letANat c) `mod` 27
 
 cantMinusc :: String -> Integer
-cantMinusc = undefined
+cantMinusc s = fromIntegral $ length $ filter esMin s
 
 contar :: Char -> String -> Integer
-contar = undefined
+contar c s = fromIntegral $ length $ filter (==c) s
 
 -- | 2
 -- Encriptar con cifrado Cesar
