@@ -31,6 +31,7 @@ decodificar :: Integer -> String -> String
 decodificar = undefined
 
 -- | 4
+-- Calcula la frecuencia porcentual de una letra minuscula l en un string
 frecLenS :: Char -> String -> Float
 frecLenS l s = 100 * (fromIntegral (contar l s) / fromIntegral (cantMinusc s))
 
