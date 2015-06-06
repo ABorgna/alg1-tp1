@@ -66,10 +66,10 @@ descifrar s = head $ sortBy compararDistancias strPosibles
           strPosibles = map decodificarCon [0..25]
 
           compararDistancias s1 s2 = compare d1 d2
-              where d1 = chi2 freqsEsp (frec s1)
-                    d2 = chi2 freqsEsp (frec s2)
+              where d1 = chi2 (frec s1) freqsEsp
+                    d2 = chi2 (frec s2) freqsEsp
 
           -- Frecuencia promedio de cada letra en español
-          freqsEsp = [12.52, 1.42, 4.67, 5.85, 13.67, 0.67, 1.01, 0.70, 6.24, 0.44, 0.01,
-                      4.96, 3.15, 6.70, 8.67, 2.51, 0.88, 6.86, 7.97, 4.62, 3.92, 0.90,
-                      0.02, 0.22, 0.90, 0.52]
+          freqsEsp = [12.52, 1.42, 4.67, 5.85, 13.67, 0.67, 1.01, 0.70, 6.24,
+                      0.44, 0.01, 4.96, 3.15, 6.70, 8.67, 2.51, 0.88, 6.86, 
+                      7.97, 4.62, 3.92, 0.90, 0.02, 0.22, 0.90, 0.52]
