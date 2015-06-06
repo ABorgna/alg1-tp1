@@ -1,4 +1,5 @@
 import Data.Char (chr,isAsciiLower,ord)
+import Data.List (sortBy)
 
 -- | 1
 -- Funciones auxiliares
@@ -47,5 +48,19 @@ chi2 (x:xs) (y:ys) | length (x:xs) == length (y:ys) = ((x-y)^2)/y + chi2 xs ys
 
 -- | 7
 descifrar :: String -> String
-descifrar = undefined
+descifrar s = head $ sortBy compararDistancias strPosibles
+    where decodificarCon n = decodificar n s
+
+          -- Resultados decodificar con cada key posible
+          strPosibles :: [String]
+          strPosibles = map decodificarCon [0..25]
+
+          compararDistancias s1 s2 = compare d1 d2
+              where d1 = chi2 freqsEsp (frec s1)
+                    d2 = chi2 freqsEsp (frec s2)
+
+          -- Frecuencia promedio de cada letra en español
+          freqsEsp = [12.52, 1.42, 4.67, 5.85, 13.67, 0.67, 1.01, 0.70, 6.24, 0.44, 0.01,
+                      4.96, 3.15, 6.70, 8.67, 2.51, 0.88, 6.86, 7.97, 4.62, 3.92, 0.90,
+                      0.02, 0.22, 0.90, 0.52]
 
