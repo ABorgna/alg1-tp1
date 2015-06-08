@@ -1,13 +1,13 @@
-import Data.Char (chr,isAsciiLower,ord)
+import Data.Char (chr,ord)
 import Data.List (sortBy)
 
 -- | 1
 -- Funciones auxiliares
 esMin :: Char -> Bool 
-esMin c = isAsciiLower c
+esMin c = c `elem` ['a'..'z']
 
 letANat :: Char -> Integer
-letANat c | c `elem` ['a'..'z'] = fromIntegral $ ord c - ord 'a'
+letANat c | esMin c = fromIntegral $ ord c - ord 'a'
 
 natALet :: Integer -> Char
 natALet n | 0 <= n && n < 26 = chr $ fromIntegral n + ord 'a'
