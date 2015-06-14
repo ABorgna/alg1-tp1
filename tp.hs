@@ -1,10 +1,10 @@
 import Data.Char (chr,ord)
-import Data.List (sortBy)
+import Data.List (minimumBy)
 
 -- | 1
 -- Funciones auxiliares
 esMin :: Char -> Bool 
-esMin c = c `elem` ['a'..'z']
+esMin c = 'a' <= c && c <= 'z'
 
 letANat :: Char -> Integer
 letANat c | esMin c = fromIntegral $ ord c - ord 'a'
@@ -58,18 +58,23 @@ chi2 (x:xs) (y:ys) | length (x:xs) == length (y:ys) = ((x-y)^2)/y + chi2 xs ys
 
 -- | 7
 descifrar :: String -> String
-descifrar s = head $ sortBy compararDistancias strPosibles
-    where decodificarCon n = decodificar n s
+descifrar s = decodificar key s
+    where 
+      frecuencias :: [Float]
+      frecuencias = frec s
 
-          -- Resultados decodificar con cada key posible
-          strPosibles :: [String]
-          strPosibles = map decodificarCon [0..25]
+      -- Buscar la key que genera la menor distancia
+      key :: Integer
+      key = minimumBy compararDistancias [0..25]
 
-          compararDistancias s1 s2 = compare d1 d2
-              where d1 = chi2 (frec s1) freqsEsp
-                    d2 = chi2 (frec s2) freqsEsp
+      -- Con que key las frecuencias se asemejan mas a freqsEsp
+      compararDistancias :: Integer -> Integer -> Ordering
+      compararDistancias k1 k2 = compare d1 d2
+          where d1 = chi2 (rotar k1 frecuencias) freqsEsp
+                d2 = chi2 (rotar k2 frecuencias) freqsEsp
 
-          -- Frecuencia promedio de cada letra en español
-          freqsEsp = [12.52, 1.42, 4.67, 5.85, 13.67, 0.67, 1.01, 0.70, 6.24,
-                      0.44, 0.01, 4.96, 3.15, 6.70, 8.67, 2.51, 0.88, 6.86, 
-                      7.97, 4.62, 3.92, 0.90, 0.02, 0.22, 0.90, 0.52]
+      -- Frecuencia promedio de cada letra en español
+      freqsEsp = [12.52, 1.42, 4.67, 5.85, 13.67, 0.67, 1.01, 0.70, 6.24,
+                  0.44, 0.01, 4.96, 3.15, 6.70, 8.67, 2.51, 0.88, 6.86, 
+                  7.97, 4.62, 3.92, 0.90, 0.02, 0.22, 0.90, 0.52]
+
