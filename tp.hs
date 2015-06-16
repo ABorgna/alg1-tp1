@@ -13,7 +13,8 @@ natALet :: Integer -> Char
 natALet n | 0 <= n && n < 26 = chr $ fromIntegral n + ord 'a'
 
 desplazar :: Integer -> Char -> Char
-desplazar n c = natALet $ (n + letANat c) `mod` 26
+desplazar n c | esMin n = natALet $ (n + letANat c) `mod` 26
+              | otherwise = c
 
 cantMinusc :: String -> Integer
 cantMinusc s = fromIntegral $ length $ filter esMin s
