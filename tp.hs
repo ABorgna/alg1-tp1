@@ -13,7 +13,7 @@ natALet :: Integer -> Char
 natALet n | 0 <= n && n < 26 = chr $ fromIntegral n + ord 'a'
 
 desplazar :: Integer -> Char -> Char
-desplazar n c | esMin n = natALet $ (n + letANat c) `mod` 26
+desplazar n c | esMin c = natALet $ (n + letANat c) `mod` 26
               | otherwise = c
 
 cantMinusc :: String -> Integer
@@ -25,11 +25,12 @@ contar c s = fromIntegral $ length $ filter (==c) s
 -- | 2
 -- Encriptar con cifrado Cesar
 codificar :: Integer -> String -> String
-codificar = undefined
+codificar x y | (length y) > 0 = [desplazar x (head y)] ++ codificar x (tail y) 
+codificar x y | length y ==0 = []
 
 -- | 3
 decodificar :: Integer -> String -> String
-decodificar = undefined
+decodificar x y = codificar (26-x) y
 
 -- | 4
 -- Calcula la frecuencia porcentual de una letra minuscula l en un string
