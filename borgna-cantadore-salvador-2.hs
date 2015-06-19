@@ -1,3 +1,7 @@
+-- TP Taller de Algebra Primer Cuatrimestre 2015
+-- Integrantes: Agustin Borgna, Santiago Cantadore, Alejo Salvador
+-- Turno Martes
+
 import Data.Char (chr,ord)
 import Data.List (minimumBy)
 
